@@ -3,11 +3,16 @@ from turtle import Turtle
 
 COORDINATES_OF_SQUARES = [(0, 0), (-13, 0), (-26, 0)]
 PACES = 10
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 class Snake:
     def __init__(self):
         self.segments = []
         self.create_snake()
+        self.head = self.segments[0]
 
     def create_snake(self):
 
@@ -25,39 +30,43 @@ class Snake:
             for index in range(len(self.segments) - 1, 0, -1):
                 self.segments[index].goto(self.segments[index - 1].xcor(), self.segments[index - 1].ycor())
 
-            if self.segments[0].xcor() == 270 and self.segments[0].ycor() == 270 and self.segments[1].heading == 270:
-                self.segments[0].left(0)
-                self.segments[0].forward(PACES)
-            elif self.segments[0].xcor() == -270 and self.segments[0].ycor() == -270:
-                self.segments[0].left(0)
-                self.segments[0].forward(PACES)
-            if self.segments[0].xcor() == 270 and self.segments[0].heading() == 0:
-                self.segments[0].left(90)
-                self.segments[0].forward(PACES)
-            elif self.segments[0].xcor() == -270 and self.segments[0].heading() == 0:
-                self.segments[0].left(0)
-                self.segments[0].forward(PACES)
-            elif self.segments[0].ycor() == 270 and self.segments[0].heading() == 0:
-                self.segments[0].left(0)
-                self.segments[0].forward(PACES)
-            elif self.segments[0].ycor() == -270 and self.segments[0].heading() == 0:
-                self.segments[0].left(180)
-                self.segments[0].forward(PACES)
+            if self.head.xcor() == 270 and self.head.ycor() == 270 and self.segments[1].heading == 270:
+                self.head.left(0)
+                self.head.forward(PACES)
+            elif self.head.xcor() == -270 and self.head.ycor() == -270:
+                self.head.left(0)
+                self.head.forward(PACES)
+            if self.head.xcor() == 270 and self.head.heading() == 0:
+                self.head.left(90)
+                self.head.forward(PACES)
+            elif self.head.xcor() == -270 and self.head.heading() == 0:
+                self.head.left(0)
+                self.head.forward(PACES)
+            elif self.head.ycor() == 270 and self.head.heading() == 0:
+                self.head.left(0)
+                self.head.forward(PACES)
+            elif self.head.ycor() == -270 and self.head.heading() == 0:
+                self.head.left(180)
+                self.head.forward(PACES)
             else:
-                self.segments[0].forward(PACES)
+                self.head.forward(PACES)
 
 
 
     def up(self):
-        self.segments[0].setheading(90)
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
 
     def down(self):
-        self.segments[0].setheading(270)
+        if self.head.heading() != UP:
+            self.head.setheading(DOWN)
 
     def left(self):
-        self.segments[0].setheading(180)
+        if self.head.heading() != RIGHT:
+            self.head.setheading(LEFT)
 
     def right(self):
-        self.segments[0].setheading(0)
+        if self.head.heading() != LEFT:
+            self.head.setheading(RIGHT)
 
 #write the rest of the program by yourself
