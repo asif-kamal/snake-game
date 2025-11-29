@@ -1,7 +1,7 @@
 import time
 from turtle import Turtle
 
-COORDINATES_OF_SQUARES = [(0, 0), (-13, 0), (-26, 0)]
+# COORDINATES_OF_SQUARES = [(0, 0), (-13, 0), (-26, 0)]
 PACES = 10
 UP = 90
 DOWN = 270
@@ -11,19 +11,14 @@ RIGHT = 0
 class Snake:
     def __init__(self):
         self.segments = []
+        self.x = 0
         self.create_snake()
         self.head = self.segments[0]
 
     def create_snake(self):
 
         for num in range(3):
-            t = Turtle()
-            t.penup()
-            t.shape("square")
-            t.setpos(COORDINATES_OF_SQUARES[num])
-            t.turtlesize(stretch_len=0.6, stretch_wid=0.6, outline=1)
-            t.color("white", "white")
-            self.segments.append(t)
+            self.add_segment()
 
     def move_snake(self):
 
@@ -68,5 +63,15 @@ class Snake:
     def right(self):
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
+
+    def add_segment(self):
+        t = Turtle()
+        t.penup()
+        t.shape("square")
+        t.setpos(self.x - 13, 0)
+        t.turtlesize(stretch_len=0.6, stretch_wid=0.6, outline=1)
+        t.color("white", "white")
+        t.speed("fastest")
+        self.segments.append(t)
 
 #write the rest of the program by yourself
