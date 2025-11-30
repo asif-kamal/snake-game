@@ -16,37 +16,26 @@ class Snake:
         self.head = self.segments[0]
 
     def create_snake(self):
-
         for num in range(3):
             self.add_segment()
 
     def move_snake(self):
-
             for index in range(len(self.segments) - 1, 0, -1):
                 self.segments[index].goto(self.segments[index - 1].xcor(), self.segments[index - 1].ycor())
 
-            if self.head.xcor() == 270 and self.head.ycor() == 270 and self.segments[1].heading == 270:
-                self.head.left(0)
-                self.head.forward(PACES)
-            elif self.head.xcor() == -270 and self.head.ycor() == -270:
-                self.head.left(0)
-                self.head.forward(PACES)
-            if self.head.xcor() == 270 and self.head.heading() == 0:
-                self.head.left(90)
-                self.head.forward(PACES)
-            elif self.head.xcor() == -270 and self.head.heading() == 0:
-                self.head.left(0)
-                self.head.forward(PACES)
-            elif self.head.ycor() == 270 and self.head.heading() == 0:
-                self.head.left(0)
-                self.head.forward(PACES)
-            elif self.head.ycor() == -270 and self.head.heading() == 0:
-                self.head.left(180)
-                self.head.forward(PACES)
-            else:
-                self.head.forward(PACES)
+            self.head.forward(PACES)
 
+    def snake_hits_wall(self):
+        if self.head.xcor() > 290 or self.head.ycor() > 290 or self.head.ycor() < -290 or self.head.xcor() < -290:
+            return True
+        else:
+            return False
 
+    def snake_hits_self(self):
+        for num in range(3, len(self.segments)):
+            if self.head.distance(self.segments[num]) < 10:
+                return True
+        return False
 
     def up(self):
         if self.head.heading() != DOWN:
@@ -67,8 +56,8 @@ class Snake:
     def add_segment(self):
         t = Turtle()
         t.penup()
-        t.shape("square")
         t.setpos(self.x - 13, 0)
+        t.shape("square")
         t.turtlesize(stretch_len=0.6, stretch_wid=0.6, outline=1)
         t.color("white", "white")
         t.speed("fastest")
