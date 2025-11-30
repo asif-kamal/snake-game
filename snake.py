@@ -32,8 +32,8 @@ class Snake:
             return False
 
     def snake_hits_self(self):
-        for num in range(3, len(self.segments)):
-            if self.head.distance(self.segments[num]) < 10:
+        for segment in self.segments[3:]:
+            if self.head.distance(segment) < 10:
                 return True
         return False
 
